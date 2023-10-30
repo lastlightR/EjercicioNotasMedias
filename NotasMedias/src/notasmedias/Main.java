@@ -41,7 +41,6 @@ public class Main {
             
             String name;
             double mean = 0;
-            int control;
             
             if (br.ready()){
                 do {

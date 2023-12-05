@@ -6,9 +6,9 @@ package notasmedias;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+//import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,8 +31,11 @@ public class Main {
         try {
             //in = new FileInputStream("src/notasmedias/alumnosNotas.txt");
             //out = new FileOutputStream("src/notasmedias/alumnosMedias.txt");
+            
+            //initializing BufferedWriter using a FileWriter with a new file to write on
             fw = new FileWriter("src/notasmedias/alumnosMedias.txt");
             bw = new BufferedWriter(fw);
+            //reading the original file with FileReader and BufferedReader
             FileReader fr = new FileReader("src/notasmedias/alumnosNotas.txt");
             BufferedReader br = new BufferedReader(fr);
             
@@ -44,21 +47,22 @@ public class Main {
             
             if (br.ready()){
                 do {
-                    reading = br.readLine();
+                    reading = br.readLine(); //saves each line of the file on each iteration
                     if (reading != null) {
-                        data = reading.split(":");
-                        name = data[0];
+                        data = reading.split(":"); //saves each part of the line on each index of data
+                        name = data[0]; //first index will be the name
+                        //calculating the mean with the remaining parts of the line
                         mean = (Double.parseDouble(data[1]) + Double.parseDouble(data[2]) + Double.parseDouble(data[3]))/3;
-                        fw.write(name + " = " + mean + "\n");
+                        fw.write(name + " = " + mean + "\n"); //writes the mean associated with a name in the new file
                     }
-                } while (reading != null);
-                fw.close();
-                System.out.println("Archivo creado.");
+                } while (reading != null); //reading ends once all lines have been processed
+                fw.close(); //closes FileWriter so the file is created
+                System.out.println("File created.");
             }
         } catch (FileNotFoundException ex) {
-            System.out.println("El fichero " + fw + " no existe.");
+            System.out.println("The file " + fw + " doesn't exist.");
         } catch (IOException ex) {
-            System.out.println("Error I/O: " + ex);
+            System.out.println("I/O Error: " + ex);
         } catch (Exception ex) {
             System.out.println("Error: " + ex);
         }
